@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
 
+enum Liked {yes, no, unknown}
+
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
     init();

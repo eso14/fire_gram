@@ -8,12 +8,12 @@ import 'src/widgets.dart';
 class Feed extends StatefulWidget {
   const Feed({
     super.key, 
-    required this.addMessage, 
-    required this.messages,
+    required this.addPost, 
+    required this.posts,
   });
 
-  final FutureOr<void> Function(String message) addMessage;
-  final List<PostonFeed> messages; // new
+  final FutureOr<void> Function(String textPost) addPost;
+  final List<PostonFeed> posts; // new
 
   @override
   _FeedState createState() => _FeedState();
@@ -54,12 +54,12 @@ class _FeedState extends State<Feed> {
                 StyledButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await widget.addMessage(_controller.text);
+                      await widget.addPost(_controller.text);
                       _controller.clear();
                     }
                   },
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.send),
                       SizedBox(width: 4),
                       Text('SEND'),
@@ -72,7 +72,7 @@ class _FeedState extends State<Feed> {
         ),
         // Modify from here...
         const SizedBox(height: 8),
-        for (var message in widget.messages)
+        for (var message in widget.posts)
           Paragraph('${message.name}: ${message.message}'),
         const SizedBox(height: 8),
       ],

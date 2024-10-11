@@ -1,8 +1,28 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+
+
+void uploadImage() async {
+  final ImagePicker picker = ImagePicker();
+
+  // Pick an image from the gallery
+  final XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+  if (pickedImage != null) {
+    File imageFile = File(pickedImage.path); // Convert XFile to File
+    String currentImageUrl = '';  // Pass an existing image URL if available
+
+    // Upload the image and get the URL
+    String imageUrl = await StorageService.uploadUserProfileImage(currentImageUrl, imageFile);
+    print("Image uploaded: $imageUrl");
+  } else {
+    print("No image selected.");
+  }
+}
 
 class StorageService {
   
