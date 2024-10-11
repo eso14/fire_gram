@@ -5,8 +5,8 @@ import 'src/widgets.dart';
 
 import 'package:flutter/src/services/text_formatter.dart';
 
-class YesNoSelection extends StatelessWidget {
-  const YesNoSelection(
+class LikeSelection extends StatelessWidget {
+  const LikeSelection(
       {super.key, required this.state, required this.onSelection});
   final Liked state;
   final void Function(Liked selection) onSelection;
