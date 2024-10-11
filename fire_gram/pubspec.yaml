@@ -45,6 +45,11 @@ dependencies:
   image_picker: ^1.1.2
   permission_handler: ^11.3.1
   path_provider: ^2.1.4
+  firebase_storage: 
+  flutter_image_compress: 
+  uuid: 
+  image_picker: 
+  path_provider:
 
 dev_dependencies:
   flutter_test:
