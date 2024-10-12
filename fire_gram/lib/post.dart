@@ -5,23 +5,23 @@ import 'new_post.dart';
 
 import 'src/widgets.dart';
 
-class Feed extends StatefulWidget {
-  const Feed({
+class Post extends StatefulWidget {
+  const Post({
     super.key, 
-    required this.addPost, 
-    required this.posts,
+    required this.addComment, 
+    required this.comments,
   });
 
-  final FutureOr<void> Function(String textPost) addPost;
-  final List<PostonFeed> posts; // new
+  final FutureOr<void> Function(String textPost) addComment;
+  final List<PostonFeed> comments; // new
 
   @override
-  _FeedState createState() => _FeedState();
+  _PostState createState() => _PostState();
 }
 
-class _FeedState extends State<Feed> {
-  final _formKey = GlobalKey<FormState>(debugLabel: '_FeedState');
-  final _controller = TextEditingController();
+class _PostState extends State<Post> {
+  final _formKey = GlobalKey<FormState>(debugLabel: '_PostState');
+  final _comment_controller = TextEditingController();
 
   @override
   // Modify from here...
@@ -38,13 +38,13 @@ class _FeedState extends State<Feed> {
               children: [
                 Expanded(
                   child: TextFormField(
-                    controller: _controller,
+                    controller: _comment_controller,
                     decoration: const InputDecoration(
-                      hintText: 'Leave a Post',
+                      hintText: 'Leave a Comment',
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Enter your post to continue';
+                        return 'Enter your Comment to continue';
                       }
                       return null;
                     },
@@ -54,8 +54,8 @@ class _FeedState extends State<Feed> {
                 StyledButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await widget.addPost(_controller.text);
-                      _controller.clear();
+                      await widget.addComment(_comment_controller.text);
+                      _comment_controller.clear();
                     }
                   },
                   child: const Row(
@@ -72,7 +72,7 @@ class _FeedState extends State<Feed> {
         ),
         // Modify from here...
         const SizedBox(height: 8),
-        for (var message in widget.posts)
+        for (var message in widget.comments)
           Paragraph('${message.name}: ${message.message}'),
         const SizedBox(height: 8),
       ],

@@ -14,18 +14,6 @@ class LikeSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (state) {
-      case Liked.no:
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-               StyledButton(
-                onPressed: () => onSelection(Liked.no),
-                child: const Icon(Icons.favorite),
-              ),
-              ],
-          ),
-        );
       case Liked.yes:
         return Padding(
           padding: const EdgeInsets.all(8.0),
@@ -45,7 +33,7 @@ class LikeSelection extends StatelessWidget {
             children: [
               StyledButton(
                 onPressed: () => onSelection(Liked.yes),
-                child: const Text('YES'),
+                child: const Icon(Icons.favorite),
               ),
              
             ],

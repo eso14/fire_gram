@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
+//fromhttps://blog.stackademic.com/uploading-and-compressing-images-in-flutter-using-firebase-storage-b509febac94e
 
 void uploadImage() async {
   final ImagePicker picker = ImagePicker();
