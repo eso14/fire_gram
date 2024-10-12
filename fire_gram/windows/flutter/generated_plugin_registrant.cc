@@ -29,4 +29,5 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
   FirebaseStoragePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FirebaseStoragePluginCApi"));
+      registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
 }

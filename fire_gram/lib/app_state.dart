@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
 
-enum Liked {yes, no, unknown}
+enum Liked {yes, unknown}
 
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
@@ -31,6 +32,20 @@ class ApplicationState extends ChangeNotifier {
         _loggedIn = false;
       }
       notifyListeners();
+    });
+  }
+  Future<DocumentReference> addPostToFeed(String message) {
+    if (!_loggedIn) {
+      throw Exception('Must be logged in');
+    }
+
+    return FirebaseFirestore.instance
+        .collection('users')
+        .add(<String, dynamic>{
+      'text': message,
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
+      'name': FirebaseAuth.instance.currentUser!.displayName,
+      'userId': FirebaseAuth.instance.currentUser!.uid,
     });
   }
 }
