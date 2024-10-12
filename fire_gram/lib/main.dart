@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';                 // new
 
 import 'app_state.dart';                                 // new
-//import 'home_page.dart';
+import 'home_page.dart';
 void main() {
   // Modify from here...
   WidgetsFlutterBinding.ensureInitialized();
