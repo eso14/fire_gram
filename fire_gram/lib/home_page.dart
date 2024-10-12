@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';          // new
 import 'app_state.dart';                          // new
 import 'feed.dart'; 
 import 'post.dart';
-//import 'src/authentication.dart';                 // new
+import 'src/authentication.dart';                 // new
 import 'src/widgets.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
           const SizedBox(height: 8),
           // Add from here
           Consumer<ApplicationState>(
-            builder: (context, appState, _) => AuthFunc(
+            builder: (context, appState, _) => Authentication(
                 loggedIn: appState.loggedIn,
                 signOut: () {
                   FirebaseAuth.instance.signOut();
