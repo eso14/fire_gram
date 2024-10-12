@@ -40,7 +40,7 @@ class ApplicationState extends ChangeNotifier {
     }
 
     return FirebaseFirestore.instance
-        .collection('users')
+        .collection('posts')
         .add(<String, dynamic>{
       'text': message,
       'timestamp': DateTime.now().millisecondsSinceEpoch,
