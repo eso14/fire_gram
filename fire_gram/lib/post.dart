@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'new_post.dart';
+import 'comment.dart';
 
 import 'src/widgets.dart';
 
@@ -13,7 +13,7 @@ class Post extends StatefulWidget {
   });
 
   final FutureOr<void> Function(String textPost) addComment;
-  final List<PostonFeed> comments; // new
+  final List<Comment> comments; // new
 
   @override
   _PostState createState() => _PostState();
