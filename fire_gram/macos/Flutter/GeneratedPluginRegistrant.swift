@@ -13,8 +13,6 @@ import firebase_core
 import firebase_storage
 import flutter_image_compress_macos
 import path_provider_foundation
-import flutter_image_compress_macos
-import path_provider_foundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseFirestorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseFirestorePlugin"))
