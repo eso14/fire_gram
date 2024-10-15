@@ -22,17 +22,8 @@ class HomePage extends StatelessWidget {
         title: const Text('FireGram'),
       ),
       body: ListView(
-        children: <Widget>[
-          const SizedBox(height: 8),
-          // Add from here
-          Consumer<ApplicationState>(
-            //make authentication individual page
-            builder: (context, appState, _) => Authentication(
-                loggedIn: appState.loggedIn,
-                signOut: () {
-                  FirebaseAuth.instance.signOut();
-                }),
-          ),
+        children: const <Widget>[
+          SizedBox(height: 8),
         ],
       ),
     );
