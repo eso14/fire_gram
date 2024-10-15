@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import 'app_state.dart';
 import 'home_page.dart';
+import 'authScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
