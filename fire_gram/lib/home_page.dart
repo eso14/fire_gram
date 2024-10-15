@@ -1,15 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart' // new
-    hide EmailAuthProvider, PhoneAuthProvider;    // new
-import 'package:flutter/material.dart';           // new
+import 'package:firebase_auth/firebase_auth.dart'
+    hide EmailAuthProvider, PhoneAuthProvider;
+import 'package:flutter/material.dart';
 //import 'package:gtk_flutter/feed.dart';
 //import 'package:gtk_flutter/like_selection.dart';
 
-import 'package:provider/provider.dart';          // new
+import 'package:provider/provider.dart';
 
-import 'app_state.dart';                          // new
-import 'feed.dart'; 
+import 'app_state.dart';
+import 'feed.dart';
 import 'post.dart';
-import 'src/authentication.dart';                 // new
+import 'src/authentication.dart';
 import 'src/widgets.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,19 +22,10 @@ class HomePage extends StatelessWidget {
         title: const Text('FireGram'),
       ),
       body: ListView(
-        children: <Widget>[
-          const SizedBox(height: 8),
-          // Add from here
-          Consumer<ApplicationState>(
-            builder: (context, appState, _) => Authentication(
-                loggedIn: appState.loggedIn,
-                signOut: () {
-                  FirebaseAuth.instance.signOut();
-                }),
-          ),
-          ],
-          ),
-          );
-          }
-
-          }
+        children: const <Widget>[
+          SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
