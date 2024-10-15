@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:fire_gram/src/authentication.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +28,14 @@ final _router = GoRouter(
       path: '/',
       builder: (context, state) {
         final appState = Provider.of<ApplicationState>(context, listen: false);
-        return appState.loggedIn ? const HomePage() : const AuthScreen();
+        return appState.loggedIn
+            ? const HomePage()
+            : Authentication(
+                loggedIn: appState.loggedIn,
+                signOut: () {
+                  FirebaseAuth.instance.signOut();
+                },
+              );
       },
     ),
     GoRoute(
