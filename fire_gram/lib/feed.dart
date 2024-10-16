@@ -62,7 +62,7 @@ class _FeedState extends State<Feed> {
                     children: [
                       Icon(Icons.send),
                       SizedBox(width: 4),
-                      Text('SEND'),
+                      Text('POST'),
                     ],
                   ),
                 ),
