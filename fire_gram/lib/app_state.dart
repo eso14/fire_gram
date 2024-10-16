@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_gram/new_post.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,8 @@ class ApplicationState extends ChangeNotifier {
 
   bool _loggedIn = false;
   bool get loggedIn => _loggedIn;
+  List<PostonFeed> _postsOnFeed = [];
+  List<PostonFeed> get postsonFeed => _postsOnFeed;
 
   Future<void> init() async {
     await Firebase.initializeApp(
