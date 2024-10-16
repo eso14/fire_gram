@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Consumer<ApplicationState>(
-            builder: (context, appState, _) => AuthFunc(
+            builder: (context, appState, _) => Authentication(
                 loggedIn: appState.loggedIn,
                 signOut: () {
                   FirebaseAuth.instance.signOut();
