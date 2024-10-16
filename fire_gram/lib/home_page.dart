@@ -1,3 +1,4 @@
+import 'package:fire_gram/like_selection.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
 import 'package:flutter/material.dart';
@@ -29,6 +30,22 @@ class HomePage extends StatelessWidget {
                 signOut: () {
                   FirebaseAuth.instance.signOut();
                 }),
+          ),
+          Consumer<ApplicationState>(
+            builder: (context, appState, _) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Header('Feed'),
+                Feed(
+                  addPost: (message) => appState.addPostToFeed(message),
+                  posts: appState.postsonFeed,
+                ),
+                LikeSelection(
+                  state: appState.liked,
+                  onSelection: (liked) => appState.liked = liked,
+                ),
+              ],
+            ),
           ),
         ],
       ),
