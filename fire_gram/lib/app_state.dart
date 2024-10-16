@@ -36,7 +36,7 @@ class ApplicationState extends ChangeNotifier {
       if (user != null) {
         _loggedIn = true;
         _userSubscription = FirebaseFirestore.instance
-            .collection('guestbook')
+            .collection('users')
             .orderBy('timestamp', descending: true)
             .snapshots()
             .listen((snapshot) {

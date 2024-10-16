@@ -22,8 +22,23 @@ class HomePage extends StatelessWidget {
         title: const Text('FireGram'),
       ),
       body: ListView(
-        children: const <Widget>[
+        children:<Widget>[
           SizedBox(height: 8),
+          Consumer<ApplicationState>(
+            builder: (context, appState, _) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                  const Header('Feed'),
+                  Feed(
+                    addPost: (message) =>
+                        appState.addPostToFeed(message),
+                        posts: appState.postsonFeed, 
+                  ),
+                ],
+            ),
+          ),
+          
         ],
       ),
     );
