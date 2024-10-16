@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 
 import 'app_state.dart';
 import 'home_page.dart';
-import 'authScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +26,7 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomePage(), 
+      builder: (context, state) => const HomePage(),
       routes: [
         GoRoute(
           path: 'sign-in',
@@ -80,20 +79,13 @@ final _router = GoRouter(
             ),
           ],
         ),
-      ],    
-    ),
-    GoRoute(
-      path: 'profile',
-      builder: (context, state) {
-        return ProfileScreen(
-          providers: const [],
-          actions: [
-            SignedOutAction((context) {
-              context.pushReplacement('/');
-            }),
-          ],
-        );
-      },
+        GoRoute(
+          path: 'home',
+          builder: (context, state) {
+            return const HomePage();
+          },
+        ),
+      ],
     ),
   ],
 );
