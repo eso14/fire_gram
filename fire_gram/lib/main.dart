@@ -26,7 +26,17 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) {
+        final appState = Provider.of<ApplicationState>(context, listen: false);
+        return appState.loggedIn
+              ? const HomePage()
+               :  Authentication(
+                loggedIn: appState.loggedIn,
+               signOut: () {
+                 FirebaseAuth.instance.signOut();
+                },
+              );
+      },
       routes: [
         GoRoute(
           path: 'sign-in',
@@ -87,6 +97,7 @@ final _router = GoRouter(
         ),
       ],
     ),
+    
   ],
 );
 // end of GoRouter configuration
