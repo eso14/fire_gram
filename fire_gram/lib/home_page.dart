@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                   const Header('Feed'),
-                  Row(children: [
+                  
                     Feed(
                     addPost: (message) =>
                         appState.addPostToFeed(message),
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                   state: appState.liked,
                   onSelection: (liked) => appState.liked = liked,
                   ),
-                  ],)
+                 
                 ],
             ),
           ),
