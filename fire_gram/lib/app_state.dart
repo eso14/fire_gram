@@ -79,6 +79,7 @@ class ApplicationState extends ChangeNotifier {
         _loggedIn = false;
         _postsOnFeed = [];
         _userSubscription?.cancel();
+        _likedSubscription?.cancel();
       }
       notifyListeners();
     });
