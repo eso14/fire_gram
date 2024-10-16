@@ -31,6 +31,14 @@ class ApplicationState extends ChangeNotifier {
     FirebaseUIAuth.configureProviders([
       EmailAuthProvider(),
     ]);
+    FirebaseFirestore.instance
+        .collection('likes')
+        .where('liked', isEqualTo: true)
+        .snapshots()
+        .listen((snapshot) {
+      notifyListeners();
+    });
+    
 
     FirebaseAuth.instance.userChanges().listen((user) {
       if (user != null) {
@@ -48,6 +56,22 @@ class ApplicationState extends ChangeNotifier {
                 message: document.data()['text'] as String,
               ),
             );
+          }
+          notifyListeners();
+        });
+        _likedSubscription = FirebaseFirestore.instance
+            .collection('likes')
+            .doc(user.uid)
+            .snapshots()
+            .listen((snapshot) {
+          if (snapshot.data() != null) {
+            if (snapshot.data()!['liked'] as bool) {
+              _liked = Liked.yes;
+            } else {
+              _liked = Liked.unknown;
+            }
+          } else {
+            _liked = Liked.unknown;
           }
           notifyListeners();
         });
@@ -74,4 +98,17 @@ class ApplicationState extends ChangeNotifier {
       'userId': FirebaseAuth.instance.currentUser!.uid,
     });
   }
+ Liked _liked = Liked.unknown;
+StreamSubscription<DocumentSnapshot>? _likedSubscription;
+Liked get liked => _liked;
+set liked(Liked liked) {
+  final userDoc = FirebaseFirestore.instance
+      .collection('likes')
+      .doc(FirebaseAuth.instance.currentUser!.uid);
+  if (liked == Liked.yes) {
+    userDoc.set(<String, dynamic>{'liked': true});
+  } else {
+    userDoc.set(<String, dynamic>{'liked': false});
+  }
+}
 }
