@@ -25,12 +25,12 @@ class ApplicationState extends ChangeNotifier {
   List<PostonFeed> get postsonFeed => _postsOnFeed;
 
   Future<void> init() async {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+    //await Firebase.initializeApp(
+        //options: DefaultFirebaseOptions.currentPlatform);
 
-    FirebaseUIAuth.configureProviders([
-      EmailAuthProvider(),
-    ]);
+    //FirebaseUIAuth.configureProviders([
+      //EmailAuthProvider(),
+    //]);
     FirebaseFirestore.instance
         .collection('post/likes')
         .where('like', isEqualTo: true)
@@ -40,7 +40,7 @@ class ApplicationState extends ChangeNotifier {
     });
 
     FirebaseAuth.instance.userChanges().listen((user) {
-      if (user != null) {
+      if (user == null) {
         _loggedIn = true;
         _userSubscription = FirebaseFirestore.instance
             .collection('users')

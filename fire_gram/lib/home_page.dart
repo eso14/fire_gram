@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Consumer<ApplicationState>(
-            builder: (context, appState, _) => Authentication(
+            builder: (context, appState, _) => AuthFunc(
                 loggedIn: appState.loggedIn,
                 signOut: () {
                   FirebaseAuth.instance.signOut();
@@ -37,8 +37,9 @@ class HomePage extends StatelessWidget {
               children: [
                 const Header('Feed'),
                 Feed(
-                  addPost: (message) => appState.addPostToFeed(message),
+                  //addPost: (message) => appState.addPostToFeed(message),
                   posts: appState.postsonFeed,
+                  comments: appState.,
                 ),
                 LikeSelection(
                   state: appState.liked,
