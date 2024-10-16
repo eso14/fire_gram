@@ -32,8 +32,8 @@ class ApplicationState extends ChangeNotifier {
       EmailAuthProvider(),
     ]);
     FirebaseFirestore.instance
-        .collection('likes')
-        .where('liked', isEqualTo: true)
+        .collection('post/likes')
+        .where('like', isEqualTo: true)
         .snapshots()
         .listen((snapshot) {
       notifyListeners();
@@ -58,13 +58,13 @@ class ApplicationState extends ChangeNotifier {
           }
           notifyListeners();
         });
-        _likedSubscription = FirebaseFirestore.instance
-            .collection('likes')
+       /* _likedSubscription = FirebaseFirestore.instance
+            .collection('posts/likes')
             .doc(user.uid)
             .snapshots()
             .listen((snapshot) {
           if (snapshot.data() != null) {
-            if (snapshot.data()!['liked'] as bool) {
+            if (snapshot.data()!['like'] as bool) {
               _liked = Liked.yes;
             } else {
               _liked = Liked.unknown;
@@ -72,8 +72,8 @@ class ApplicationState extends ChangeNotifier {
           } else {
             _liked = Liked.unknown;
           }
-          notifyListeners();
-        });
+         notifyListeners();
+        });*/ 
       } else {
         _loggedIn = false;
         _postsOnFeed = [];
@@ -96,18 +96,31 @@ class ApplicationState extends ChangeNotifier {
       'userId': FirebaseAuth.instance.currentUser!.uid,
     });
   }
+  Future<DocumentReference> addComment(String message, String postid) {
+    if (!_loggedIn) {
+      throw Exception('Must be logged in');
+    }
+
+    return FirebaseFirestore.instance.collection('posts/'+postid+'/comment').add(<String, dynamic>{
+      'text': message,
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
+      'name': FirebaseAuth.instance.currentUser!.displayName,
+      'userId': FirebaseAuth.instance.currentUser!.uid,
+    });
+  }
 
   Liked _liked = Liked.unknown;
   StreamSubscription<DocumentSnapshot>? _likedSubscription;
   Liked get liked => _liked;
   set liked(Liked liked) {
     final userDoc = FirebaseFirestore.instance
-        .collection('likes')
+        .collection('posts/'+postid+'/likes')
         .doc(FirebaseAuth.instance.currentUser!.uid);
     if (liked == Liked.yes) {
-      userDoc.set(<String, dynamic>{'liked': true});
+      userDoc.set(<String, dynamic>{'like': true});
     } else {
-      userDoc.set(<String, dynamic>{'liked': false});
+      userDoc.set(<String, dynamic>{'like': false});
     }
+    //.likeOnPost(postid)-> above stuff
   }
 }
