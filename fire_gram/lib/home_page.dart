@@ -22,23 +22,14 @@ class HomePage extends StatelessWidget {
         title: const Text('FireGram'),
       ),
       body: ListView(
-        children:<Widget>[
-          SizedBox(height: 8),
+        children: <Widget>[
           Consumer<ApplicationState>(
-            builder: (context, appState, _) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                  const Header('Feed'),
-                  Feed(
-                    addPost: (message) =>
-                        appState.addPostToFeed(message),
-                        posts: appState.postsonFeed, 
-                  ),
-                ],
-            ),
+            builder: (context, appState, _) => AuthFunc(
+                loggedIn: appState.loggedIn,
+                signOut: () {
+                  FirebaseAuth.instance.signOut();
+                }),
           ),
-          
         ],
       ),
     );
