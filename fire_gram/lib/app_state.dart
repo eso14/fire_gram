@@ -19,6 +19,8 @@ class ApplicationState extends ChangeNotifier {
 
   bool _loggedIn = false;
   bool get loggedIn => _loggedIn;
+  StreamSubscription<QuerySnapshot>? _userSubscription;
+
   List<PostonFeed> _postsOnFeed = [];
   List<PostonFeed> get postsonFeed => _postsOnFeed;
 
@@ -33,11 +35,30 @@ class ApplicationState extends ChangeNotifier {
     FirebaseAuth.instance.userChanges().listen((user) {
       if (user != null) {
         _loggedIn = true;
+        _userSubscription = FirebaseFirestore.instance
+            .collection('guestbook')
+            .orderBy('timestamp', descending: true)
+            .snapshots()
+            .listen((snapshot) {
+          _postsOnFeed = [];
+          for (final document in snapshot.docs) {
+            _postsOnFeed.add(
+              PostonFeed(
+                name: document.data()['name'] as String,
+                message: document.data()['text'] as String,
+              ),
+            );
+          }
+          notifyListeners();
+        });
       } else {
         _loggedIn = false;
+        _postsOnFeed = [];
+        _userSubscription?.cancel();
       }
       notifyListeners();
     });
+    
   }
   Future<DocumentReference> addPostToFeed(String message) {
     if (!_loggedIn) {
