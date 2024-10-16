@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'widgets.dart';
 
-class Authentication extends StatelessWidget {
-  const Authentication({
+class AuthFunc extends StatelessWidget {
+  const AuthFunc({
     super.key,
     required this.loggedIn,
     required this.signOut,
@@ -17,35 +15,31 @@ class Authentication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          //Login/Logout button
+          padding: const EdgeInsets.only(left: 24, bottom: 8),
           child: StyledButton(
-            onPressed: () {
-              if (!loggedIn) {
-                context.push('/sign-in');
-              } else {
-                signOut();
-                // Redirect to login screen after sign out
-                context.pushReplacement('/sign-in');
-              }
-            },
-            child: Text(loggedIn ? 'Logout' : 'Login/Register'),
-          ),
-        ),
-        if (loggedIn)
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            //Profile button
-            child: StyledButton(
               onPressed: () {
-                context.push('/profile');
+                if (loggedIn) {
+                  context.push('/sign-in');
+                } else {
+                  signOut;
+                  context.pushReplacement('/');
+                }
               },
-              child: const Text('Profile'),
-            ),
+              child: !loggedIn ? const Text('RSVP') : const Text('Logout')),
+        ),
+        Visibility(
+          visible: loggedIn,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 24, bottom: 8),
+            child: StyledButton(
+                onPressed: () {
+                  context.push('/');
+                },
+                child: const Text('Home')),
           ),
+        )
       ],
     );
   }
